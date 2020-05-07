@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        // Enable the Google services 
+        // https://github.com/FirebaseExtended/flutterfire/tree/master/packages/firebase_crashlytics
+        // Additional repository for fabric resources
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
+    }
+
+    dependencies {
+        // change from 3.2.1 to 3.3.1
+        // https://stackoverflow.com/questions/54823084/flutter-error-android-dependency-androidx-corecore-has-different-version-us
+        classpath 'com.android.tools.build:gradle:3.3.1'
+
+        // Enable the Google services 
+        // https://github.com/FirebaseExtended/flutterfire/tree/master/packages/firebase_crashlytics
+        // Add the google services classpath
+        classpath 'com.google.gms:google-services:4.3.0'
+        // Add fabric classpath
+        classpath 'io.fabric.tools:gradle:1.26.1'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        // Enable the Google services 
+        // https://github.com/FirebaseExtended/flutterfire/tree/master/packages/firebase_crashlytics
+        // Additional repository for fabric resources
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
+        }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    flutterFFmpegPackage  = "full-gpl-lts"
+}
